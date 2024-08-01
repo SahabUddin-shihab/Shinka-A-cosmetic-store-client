@@ -1,0 +1,517 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model seo {
+  id              Int      @id @default(autoincrement())
+  page_name       String
+  seo_title       String   @db.LongText
+  seo_description String   @db.LongText
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+}
+
+model about {
+  id                  Int      @id @default(autoincrement())
+  title_one           String
+  description_one     String   @db.LongText
+  icone_one           String
+  icon_one_title      String
+  icone_two           String
+  icon_two_title      String
+  ceo_speech          String
+  ceo_image           String
+  ceo_name            String
+  designation         String
+  main_image          String
+  experience          String
+  partial_image_one   String
+  partial_image_two   String
+  partial_image_three String
+  partial_image_four  String
+  partial_image_five  String
+  partial_image_six   String
+  title_two           String
+  description_two     String   @db.LongText
+  quate_data          String
+  title_three         String
+  description_three   String   @db.LongText
+  quate_data_two      String
+  bottom_image_one    String
+  bottom_image_two    String
+  rating_text         String
+  rating              Float
+  created_at          DateTime @default(now())
+  updated_at          DateTime @default(now())
+}
+
+model admin {
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String   @unique(map: "Admin_email_key")
+  password       String
+  image          String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @default(now())
+  verified_token Int
+  country        String?
+  city           String?
+  address        String?
+  postal_code    String?
+}
+
+model ads {
+  id         Int      @id @default(autoincrement())
+  image      String
+  link       String
+  status     Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model category {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique(map: "Category_name_key")
+  slug        String        @unique
+  status      Int
+  icon        String
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @default(now())
+  event       event[]
+  subcategory subcategory[]
+}
+
+model city {
+  id         Int      @id @default(autoincrement())
+  state_id   Int      @default(1)
+  state      state  @relation(fields: [state_id], references: [id])
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  event      event[]
+  venue  venue[]
+}
+
+model contact {
+  id                  Int      @id @default(autoincrement())
+  address             String
+  conatct_title       String
+  conatct_number      String
+  support_title       String
+  support_link        String
+  message_title       String
+  message_description String
+  created_at          DateTime @default(now())
+  updated_at          DateTime @default(now())
+}
+
+model contactmail {
+  id         Int      @id @default(autoincrement())
+  seller_id  Int      @default(0)
+  name       String
+  email      String
+  subject    String
+  body       String   @db.LongText
+  phone      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model email {
+  id              Int      @id @default(autoincrement())
+  mail_type       String?
+  mail_host       String
+  mail_port       String
+  email_from      String
+  smtp_username   String
+  smtp_password   String
+  mail_encryption String
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+}
+
+model event {
+  id              Int         @id @default(autoincrement())
+  is_feature      Int
+  organizer_id    Int
+  category_id     Int
+  subcategory_id  Int
+  vanue_id        Int
+  type_id         Int
+  title           String
+  slug            String @unique
+  ticket_price    Float
+  vip_price       Float  @default(0.0)
+  vvip_price      Float  @default(0.0)
+  normalticket_name String @default("Normal ticket")
+  vipticket_name  String   @default("VIP ticket")
+  vvipticket_name String   @default("VVIP ticket")
+  no_sites        Int
+  booked_sites    Int
+  image           String
+  description_one String      @db.LongText
+  description_two String      @db.LongText
+  google_map      String      @db.Text
+  address         String
+  arrange_time    String
+  duration        String
+  views           Int         @default(0)
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @default(now())
+  qr_code         Decimal
+  country_id      Int
+  country         country  @relation(fields: [country_id], references: [id])
+  state_id        Int      @default(1)
+  state           state  @relation(fields: [state_id], references: [id])
+  city_id         Int
+  status          Int         @default(1)
+  feature_request Int         @default(0)
+  category        category    @relation(fields: [category_id], references: [id], onDelete: NoAction, map: "Event_category_id_fkey")
+  city            city        @relation(fields: [city_id], references: [id], onDelete: NoAction, map: "Event_city_id_fkey")
+  user            user        @relation(fields: [organizer_id], references: [id], onDelete: NoAction, map: "Event_organizer_id_fkey")
+  subcategory     subcategory @relation(fields: [subcategory_id], references: [id], onDelete: NoAction, map: "Event_subcategory_id_fkey")
+  ticket_type     ticket_type @relation(fields: [type_id], references: [id], onDelete: NoAction, map: "Event_type_id_fkey")
+  venue           venue       @relation(fields: [vanue_id], references: [id], onDelete: NoAction, map: "Event_vanue_id_fkey")
+  order           order[]
+  review          review[]
+  wishlist        wishlist[]
+  specification   specification[]
+
+  @@index([category_id], map: "Event_category_id_fkey")
+  @@index([city_id], map: "Event_city_id_fkey")
+  @@index([organizer_id], map: "Event_organizer_id_fkey")
+  @@index([subcategory_id], map: "Event_subcategory_id_fkey")
+  @@index([type_id], map: "Event_type_id_fkey")
+  @@index([vanue_id], map: "Event_vanue_id_fkey")
+}
+
+model footer {
+  id          Int           @id @default(autoincrement())
+  name        String
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @default(now())
+  footer_item footer_item[]
+}
+
+model footer_item {
+  id         Int      @id @default(autoincrement())
+  footer_id  Int
+  name       String
+  link       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  footer     footer   @relation(fields: [footer_id], references: [id], onDelete: NoAction, map: "Footer_Item_footer_id_fkey")
+
+  @@index([footer_id], map: "Footer_Item_footer_id_fkey")
+}
+
+model order {
+  id             Int      @id @default(autoincrement())
+  user_id        Int
+  event_id       Int
+  first_name     String
+  last_name      String
+  email          String
+  quantity       Int
+  unit_price     Float
+  order_status   Int
+  payment_status Int
+  transaction_id String
+  payment_method String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @default(now())
+  address        String   @db.VarChar(255)
+  phone          String   @db.VarChar(255)
+  event          event    @relation(fields: [event_id], references: [id], onDelete: NoAction, map: "Order_event_id_fkey")
+  user           user     @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "Order_user_id_fkey")
+  
+  @@index([event_id], map: "Order_event_id_fkey")
+  @@index([user_id], map: "Order_user_id_fkey")
+}
+
+model privacy {
+  id         Int      @id @default(autoincrement())
+  privacy    String   @db.LongText
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model review {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  event_id   Int
+  comment    String   @db.LongText
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  rating     Float    @default(0)
+  event      event    @relation(fields: [event_id], references: [id], onDelete: NoAction, map: "Review_event_id_fkey")
+  user       user     @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "Review_user_id_fkey")
+
+  @@index([event_id], map: "Review_event_id_fkey")
+  @@index([user_id], map: "Review_user_id_fkey")
+}
+
+model setting {
+  id                           Int      @id @default(autoincrement())
+  app_title                    String
+  logo                         String
+  footer_logo                  String
+  favicon                      String
+  contact_email                String
+  app_name                     String
+  footer_text                  String   @db.LongText
+  currency_rate                Float
+  currency_icon                String
+  curency_name                 String
+  copyrigt_text                String
+  mantainance_mode             Int
+  mantainance_mode_image       String
+  mantainance_mode_description String
+  created_at                   DateTime @default(now())
+  updated_at                   DateTime @default(now())
+  loginpage_image              String
+  frontend_url                 String
+  logo_dark                    String   @db.VarChar(255)
+  logo_sidebar                 String   @db.VarChar(255)
+}
+
+model slider {
+  id         Int      @id @default(autoincrement())
+  image      String
+  link       String
+  status     Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model social_media {
+  id         Int      @id @default(autoincrement())
+  name       String
+  icon       String
+  link       String
+  status     Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model subcategory {
+  id          Int      @id @default(autoincrement())
+  category_id Int
+  name        String   @unique(map: "SubCategory_name_key")
+  slug        String @unique
+  status      Int
+  icon        String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  event       event[]
+  category    category @relation(fields: [category_id], references: [id], onDelete: NoAction, map: "SubCategory_category_id_fkey")
+
+  @@index([category_id], map: "SubCategory_category_id_fkey")
+}
+
+model subscriber {
+  id          Int      @id @default(autoincrement())
+  email       String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  status      Int      @default(0)
+  is_verified Int      @default(0)
+}
+
+model terms {
+  id         Int      @id @default(autoincrement())
+  terms      String   @db.LongText
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model ticket_type {
+  id         Int      @id @default(autoincrement())
+  name       String
+  status     Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  event      event[]
+  venu_tickets venu_ticket[]
+}
+
+
+model user {
+  id             Int        @id @default(autoincrement())
+  is_organizer   Int
+  is_approved    Int
+  name           String
+  email          String
+  email_verified String?
+  password       String
+  phone          String?
+  country        String?
+  city           String?
+  address        String?
+  postal_code    String?
+  remember_token String?
+  created_at     DateTime   @default(now())
+  updated_at     DateTime   @default(now())
+  image          String?
+  verified_token Int?
+  status         Int        @default(1)
+
+  company_first_name String?
+  company_last_name String?
+  company_email String?
+  company_phone String?
+  company_country String?
+  company_city String?
+  company_address String?
+  website_url String?
+  tax_id String?
+  google_map String? @db.LongText
+  company_logo String?
+  company_document String?
+  facebook_url String?
+  twitter_url String?
+  instagram_url String?
+  youtube_url String?
+  is_agree Int? @default(1)
+  description String? @db.LongText
+  is_approve Int?
+  event          event[]
+  order          order[]
+  review         review[]
+  wishlist       wishlist[]
+}
+
+model venue {
+  id          Int      @id @default(autoincrement())
+  country_id  Int
+  country     country         @relation(fields: [country_id], references: [id])
+  state_id    Int
+  state       state           @relation(fields: [state_id], references: [id])
+  city_id     Int
+  city        city            @relation(fields: [city_id], references: [id])
+
+  address     String
+  google_map  String? @db.LongText @default("Google Map")
+  latitude    Float   @default(0.0)
+  longitude   Float   @default(0.0)
+  name        String
+  seat        Int
+  normal_seat Int      @default(0)
+  vip_seat    Int     @default(0)
+  vvip_seat   Int     @default(0)
+  status      Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  event       event[]
+  venu_tickets venu_ticket[]
+  specification   specification[]
+}
+
+model wishlist {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  event_id   Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  event      event    @relation(fields: [event_id], references: [id], onDelete: NoAction, map: "Wishlist_event_id_fkey")
+  user       user     @relation(fields: [user_id], references: [id], onDelete: NoAction, map: "Wishlist_user_id_fkey")
+
+  @@index([event_id], map: "Wishlist_event_id_fkey")
+  @@index([user_id], map: "Wishlist_user_id_fkey")
+}
+
+model stripe {
+  id            Int      @id @default(autoincrement())
+  user_id       Int      @default(00)
+  stipe_secrate String   @db.LongText
+  country_code  String
+  currency_code String
+  currency_rate Float
+  image         String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+  status        Int
+  stripe_key    String   @db.LongText
+}
+
+model email_templates {
+  id          Int       @id @default(autoincrement())
+  name        String?   @db.Text
+  subject     String?   @db.Text
+  description String?   @db.Text
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+}
+
+model footer_banner {
+    id            Int       @id @default(autoincrement())
+    award_title   String    
+    award_heading String 
+    award_icon    String? 
+    main_image    String
+    rating_text   String
+    rating        Float
+    title         String @db.Text
+    description   String @db.Text
+    created_at DateTime @default(now())
+    updated_at DateTime @default(now())
+}
+
+model country {
+  id         Int      @id @default(autoincrement())
+  name       String
+  slug       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  states     state[]
+  event      event[]
+  venue  venue[]  
+}
+
+model state {
+  id         Int      @id @default(autoincrement())
+  country_id Int
+  country    country  @relation(fields: [country_id], references: [id])
+  name       String
+  slug       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  city     city[]
+  event      event[]
+  venue  venue[]
+}
+
+
+model venu_ticket {
+  id          Int      @id @default(autoincrement())
+  seats       Int
+  name        String
+  venue_id    Int
+  venue       venue  @relation(fields: [venue_id], references: [id])
+  ticket_id   Int
+  ticket_type ticket_type  @relation(fields: [ticket_id], references: [id])
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+  specification specification[]
+}
+
+model specification {
+  id          Int      @id @default(autoincrement())
+  price       Float    @default(0.0)
+  level       String   @default("Normal Ticket")
+  venue_id    Int
+  venue       venue  @relation(fields: [venue_id], references: [id])
+  event_id    Int
+  event       event  @relation(fields: [event_id], references: [id])
+  ticket_id   Int
+  venu_ticket venu_ticket  @relation(fields: [ticket_id], references: [id])
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+}
+
+

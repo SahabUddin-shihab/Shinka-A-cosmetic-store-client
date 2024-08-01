@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `review` ADD COLUMN `rating` DOUBLE NOT NULL DEFAULT 0.0;

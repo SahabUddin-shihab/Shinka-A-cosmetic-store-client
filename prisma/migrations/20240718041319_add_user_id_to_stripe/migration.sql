@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `stripe` ADD COLUMN `user_id` INTEGER NOT NULL DEFAULT 0;
