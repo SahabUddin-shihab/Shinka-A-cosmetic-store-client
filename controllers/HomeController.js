@@ -8,7 +8,7 @@ import session from "express-session";
 class HomeController {
 
   static async index(req, res) {
-    //try {
+    try {
 
        
         const categories = await prisma.category.findMany({
@@ -68,83 +68,83 @@ class HomeController {
             
         });
         
-         const currentDate = new Date().toISOString();
-        // const trending_events = await prisma.event.findMany({
-        //   include: {
-        //     user: {
-        //       select : {
-        //         id : true,
-        //         name : true,
-        //         image : true
-        //       }
-        //     }, 
-        //     category: {
-        //       select : {
-        //         name : true,
-        //       }
-        //     }, 
-        //     subcategory: {
-        //       select : {
-        //         name : true,
-        //       }
-        //     },
-        //     venue : {
-        //       select : {
-        //         id : true,
-        //         name : true,
-        //         seat : true,
-        //         address : true,
-        //         google_map : true,
-        //         latitude : true,
-        //         longitude : true,
-        //         venu_tickets : {
-        //           select : {
-        //             id : true,
-        //             name : true,
-        //             seats : true
-        //           }
-        //         },
-        //         country : {
-        //           select : {
-        //             id : true,
-        //             name : true
-        //           }
-        //         },
-        //         state : {
-        //           select : {
-        //             id : true,
-        //             country_id : true,
-        //             name : true
-        //           }
-        //         },
-        //         city : {
-        //           select : {
-        //             id : true,
-        //             name : true
-        //           }
-        //         }
-        //       }
-        //     },
-        //     specification : {
-        //       select : {
-        //         id : true,
-        //         venue_id : true,
-        //         ticket_id : true,
-        //         level : true,
-        //         price : true,
-        //       }
-        //     }
-        //   },
-        //   orderBy :{
-        //     views : 'desc',
-        //   },
-        //   where : {
-        //     arrange_time : {
-        //       gt: currentDate,
-        //     },
-        //   },
-        //   take : 3
-        // });
+        const currentDate = new Date().toISOString();
+        const trending_events = await prisma.event.findMany({
+          include: {
+            user: {
+              select : {
+                id : true,
+                name : true,
+                image : true
+              }
+            }, 
+            category: {
+              select : {
+                name : true,
+              }
+            }, 
+            subcategory: {
+              select : {
+                name : true,
+              }
+            },
+            venue : {
+              select : {
+                id : true,
+                name : true,
+                seat : true,
+                address : true,
+                google_map : true,
+                latitude : true,
+                longitude : true,
+                venu_tickets : {
+                  select : {
+                    id : true,
+                    name : true,
+                    seats : true
+                  }
+                },
+                country : {
+                  select : {
+                    id : true,
+                    name : true
+                  }
+                },
+                state : {
+                  select : {
+                    id : true,
+                    country_id : true,
+                    name : true
+                  }
+                },
+                city : {
+                  select : {
+                    id : true,
+                    name : true
+                  }
+                }
+              }
+            },
+            specification : {
+              select : {
+                id : true,
+                venue_id : true,
+                ticket_id : true,
+                level : true,
+                price : true,
+              }
+            }
+          },
+          orderBy :{
+            views : 'desc',
+          },
+          where : {
+            arrange_time : {
+              gt: currentDate,
+            },
+          },
+          take : 3
+        });
        
         const populer_events = await prisma.event.findMany({
           include: {
@@ -186,7 +186,7 @@ class HomeController {
           },
           take : 3
         });
-       
+
         const all_letest_events = await prisma.event.findMany({
           include: {
             user: {
@@ -267,7 +267,7 @@ class HomeController {
           },
           take : 9,
         });
-        return res.json(all_letest_events);
+
         const banner = await prisma.ads.findMany({
           where: {
             id: {
@@ -291,9 +291,9 @@ class HomeController {
       });
 
 
-    // } catch (error) {
-    //   return res.status(500).json({ message: "Something went wrong." });
-    // }
+    } catch (error) {
+      return res.status(500).json({ message: "Something went wrong." });
+    }
   }
 
   static async websiteSetup(req, res) {
