@@ -40,6 +40,8 @@ class HomeController {
               link : true
             }
         });
+
+        return res.json(sliders);
         
         let cat_id = 1;
         const cat = await prisma.category.findFirst({});
