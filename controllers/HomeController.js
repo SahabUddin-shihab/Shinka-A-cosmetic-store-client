@@ -145,48 +145,48 @@ class HomeController {
           },
           take : 3
         });
-       
-        // const populer_events = await prisma.event.findMany({
-        //   include: {
-        //     user: {
-        //       select : {
-        //         id : true,
-        //         name : true,
-        //         image : true
-        //       }
-        //     }, 
-        //     category: {
-        //       select : {
-        //         name : true,
-        //       }
-        //     }, 
-        //     subcategory: {
-        //       select : {
-        //         name : true,
-        //       }
-        //     },
-        //     venue: {
-        //       select : {
-        //         name : true,
-        //       }
-        //     }, 
-        //     ticket_type: {
-        //       select : {
-        //         name : true,
-        //       }
-        //     },
-        //   },
-        //   orderBy : {
-        //     booked_sites : 'desc'
-        //   },
-        //   where : {
-        //     arrange_time : {
-        //       gt: currentDate,
-        //     },
-        //   },
-        //   take : 3
-        // });
-        //return res.json(populer_events);
+        return res.json(trending_events);
+        const populer_events = await prisma.event.findMany({
+          include: {
+            user: {
+              select : {
+                id : true,
+                name : true,
+                image : true
+              }
+            }, 
+            category: {
+              select : {
+                name : true,
+              }
+            }, 
+            subcategory: {
+              select : {
+                name : true,
+              }
+            },
+            venue: {
+              select : {
+                name : true,
+              }
+            }, 
+            ticket_type: {
+              select : {
+                name : true,
+              }
+            },
+          },
+          orderBy : {
+            booked_sites : 'desc'
+          },
+          where : {
+            arrange_time : {
+              gt: currentDate,
+            },
+          },
+          take : 3
+        });
+        
         const all_letest_events = await prisma.event.findMany({
           include: {
             user: {
@@ -267,7 +267,7 @@ class HomeController {
           },
           take : 9,
         });
-      return res.json(all_letest_events);
+
         const banner = await prisma.ads.findMany({
           where: {
             id: {
@@ -283,7 +283,7 @@ class HomeController {
         sliders : sliders,
         subcategory : subcategory,
         recent_events : trending_events,
-        //populer_events : populer_events,
+        populer_events : populer_events,
         all_letest_events : all_letest_events,
         banner : banner,
         cta : footer_banner
