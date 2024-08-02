@@ -10,7 +10,7 @@ class HomeController {
   static async index(req, res) {
     try {
 
-        return res.json("Hello from controller");
+       
         const categories = await prisma.category.findMany({
             where: { 
                 status : 1
@@ -28,7 +28,7 @@ class HomeController {
             },
         });
 
-      
+        return res.json(categories);
        
         const sliders = await prisma.slider.findMany({
             where : {
