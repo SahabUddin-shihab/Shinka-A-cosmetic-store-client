@@ -187,8 +187,6 @@ class HomeController {
           take : 3
         });
 
-
-        
         const all_letest_events = await prisma.event.findMany({
           include: {
             user: {
