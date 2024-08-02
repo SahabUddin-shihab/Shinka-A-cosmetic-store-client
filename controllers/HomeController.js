@@ -41,7 +41,7 @@ class HomeController {
             }
         });
 
-        return res.json(sliders);
+       
         
         let cat_id = 1;
         const cat = await prisma.category.findFirst({});
@@ -67,7 +67,7 @@ class HomeController {
                 
             
         });
-        
+        return res.json(subcategory);
         const currentDate = new Date().toISOString();
         const trending_events = await prisma.event.findMany({
           include: {
