@@ -67,7 +67,7 @@ class HomeController {
                 
             
         });
-        return res.json(subcategory);
+        
         const currentDate = new Date().toISOString();
         const trending_events = await prisma.event.findMany({
           include: {
@@ -145,6 +145,7 @@ class HomeController {
           },
           take : 3
         });
+        return res.json(trending_events);
         const populer_events = await prisma.event.findMany({
           include: {
             user: {
