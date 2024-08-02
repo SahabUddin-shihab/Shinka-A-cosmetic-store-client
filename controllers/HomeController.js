@@ -146,46 +146,46 @@ class HomeController {
           take : 3
         });
        
-        const populer_events = await prisma.event.findMany({
-          include: {
-            user: {
-              select : {
-                id : true,
-                name : true,
-                image : true
-              }
-            }, 
-            category: {
-              select : {
-                name : true,
-              }
-            }, 
-            subcategory: {
-              select : {
-                name : true,
-              }
-            },
-            venue: {
-              select : {
-                name : true,
-              }
-            }, 
-            ticket_type: {
-              select : {
-                name : true,
-              }
-            },
-          },
-          orderBy : {
-            booked_sites : 'desc'
-          },
-          where : {
-            arrange_time : {
-              gt: currentDate,
-            },
-          },
-          take : 3
-        });
+        // const populer_events = await prisma.event.findMany({
+        //   include: {
+        //     user: {
+        //       select : {
+        //         id : true,
+        //         name : true,
+        //         image : true
+        //       }
+        //     }, 
+        //     category: {
+        //       select : {
+        //         name : true,
+        //       }
+        //     }, 
+        //     subcategory: {
+        //       select : {
+        //         name : true,
+        //       }
+        //     },
+        //     venue: {
+        //       select : {
+        //         name : true,
+        //       }
+        //     }, 
+        //     ticket_type: {
+        //       select : {
+        //         name : true,
+        //       }
+        //     },
+        //   },
+        //   orderBy : {
+        //     booked_sites : 'desc'
+        //   },
+        //   where : {
+        //     arrange_time : {
+        //       gt: currentDate,
+        //     },
+        //   },
+        //   take : 3
+        // });
         //return res.json(populer_events);
         const all_letest_events = await prisma.event.findMany({
           include: {
