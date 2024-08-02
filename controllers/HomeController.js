@@ -8,7 +8,7 @@ import session from "express-session";
 class HomeController {
 
   static async index(req, res) {
-    try {
+    //try {
 
        
         const categories = await prisma.category.findMany({
@@ -291,9 +291,9 @@ class HomeController {
       });
 
 
-    } catch (error) {
-      return res.status(500).json({ message: "Something went wrong." });
-    }
+    // } catch (error) {
+    //   return res.status(500).json({ message: "Something went wrong." });
+    // }
   }
 
   static async websiteSetup(req, res) {
