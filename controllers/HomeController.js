@@ -186,7 +186,7 @@ class HomeController {
           },
           take : 3
         });
-        return res.json(populer_events);
+        //return res.json(populer_events);
         const all_letest_events = await prisma.event.findMany({
           include: {
             user: {
@@ -283,7 +283,7 @@ class HomeController {
         sliders : sliders,
         subcategory : subcategory,
         recent_events : trending_events,
-        populer_events : populer_events,
+        //populer_events : populer_events,
         all_letest_events : all_letest_events,
         banner : banner,
         cta : footer_banner
