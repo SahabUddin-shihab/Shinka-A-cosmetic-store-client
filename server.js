@@ -34,11 +34,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  return res.json({ message: "User service on fire." });
-});
-
-
 app.use(
   session({
     secret: 'm!uZ5fLyDHKf?me',
