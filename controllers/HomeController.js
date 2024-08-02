@@ -267,7 +267,7 @@ class HomeController {
           },
           take : 9,
         });
-
+      return res.json(all_letest_events);
         const banner = await prisma.ads.findMany({
           where: {
             id: {
