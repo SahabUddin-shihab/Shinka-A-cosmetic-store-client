@@ -68,84 +68,84 @@ class HomeController {
             
         });
         
-        const currentDate = new Date().toISOString();
-        const trending_events = await prisma.event.findMany({
-          include: {
-            user: {
-              select : {
-                id : true,
-                name : true,
-                image : true
-              }
-            }, 
-            category: {
-              select : {
-                name : true,
-              }
-            }, 
-            subcategory: {
-              select : {
-                name : true,
-              }
-            },
-            venue : {
-              select : {
-                id : true,
-                name : true,
-                seat : true,
-                address : true,
-                google_map : true,
-                latitude : true,
-                longitude : true,
-                venu_tickets : {
-                  select : {
-                    id : true,
-                    name : true,
-                    seats : true
-                  }
-                },
-                country : {
-                  select : {
-                    id : true,
-                    name : true
-                  }
-                },
-                state : {
-                  select : {
-                    id : true,
-                    country_id : true,
-                    name : true
-                  }
-                },
-                city : {
-                  select : {
-                    id : true,
-                    name : true
-                  }
-                }
-              }
-            },
-            specification : {
-              select : {
-                id : true,
-                venue_id : true,
-                ticket_id : true,
-                level : true,
-                price : true,
-              }
-            }
-          },
-          orderBy :{
-            views : 'desc',
-          },
-          where : {
-            arrange_time : {
-              gt: currentDate,
-            },
-          },
-          take : 3
-        });
-        return res.json(trending_events);
+        // const currentDate = new Date().toISOString();
+        // const trending_events = await prisma.event.findMany({
+        //   include: {
+        //     user: {
+        //       select : {
+        //         id : true,
+        //         name : true,
+        //         image : true
+        //       }
+        //     }, 
+        //     category: {
+        //       select : {
+        //         name : true,
+        //       }
+        //     }, 
+        //     subcategory: {
+        //       select : {
+        //         name : true,
+        //       }
+        //     },
+        //     venue : {
+        //       select : {
+        //         id : true,
+        //         name : true,
+        //         seat : true,
+        //         address : true,
+        //         google_map : true,
+        //         latitude : true,
+        //         longitude : true,
+        //         venu_tickets : {
+        //           select : {
+        //             id : true,
+        //             name : true,
+        //             seats : true
+        //           }
+        //         },
+        //         country : {
+        //           select : {
+        //             id : true,
+        //             name : true
+        //           }
+        //         },
+        //         state : {
+        //           select : {
+        //             id : true,
+        //             country_id : true,
+        //             name : true
+        //           }
+        //         },
+        //         city : {
+        //           select : {
+        //             id : true,
+        //             name : true
+        //           }
+        //         }
+        //       }
+        //     },
+        //     specification : {
+        //       select : {
+        //         id : true,
+        //         venue_id : true,
+        //         ticket_id : true,
+        //         level : true,
+        //         price : true,
+        //       }
+        //     }
+        //   },
+        //   orderBy :{
+        //     views : 'desc',
+        //   },
+        //   where : {
+        //     arrange_time : {
+        //       gt: currentDate,
+        //     },
+        //   },
+        //   take : 3
+        // });
+       
         const populer_events = await prisma.event.findMany({
           include: {
             user: {
@@ -186,7 +186,7 @@ class HomeController {
           },
           take : 3
         });
-        
+        return res.json(populer_events);
         const all_letest_events = await prisma.event.findMany({
           include: {
             user: {
