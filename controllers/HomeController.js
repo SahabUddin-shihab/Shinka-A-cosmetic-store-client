@@ -186,7 +186,7 @@ class HomeController {
           },
           take : 3
         });
-        return res.json(populer_events);
+       
         const all_letest_events = await prisma.event.findMany({
           include: {
             user: {
@@ -267,7 +267,7 @@ class HomeController {
           },
           take : 9,
         });
-
+        return res.json(all_letest_events);
         const banner = await prisma.ads.findMany({
           where: {
             id: {
