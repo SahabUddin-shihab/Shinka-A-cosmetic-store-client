@@ -28,7 +28,7 @@ class HomeController {
             },
         });
 
-        return res.json(categories);
+        
        
         const sliders = await prisma.slider.findMany({
             where : {
