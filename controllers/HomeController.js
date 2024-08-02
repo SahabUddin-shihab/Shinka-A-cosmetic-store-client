@@ -68,7 +68,7 @@ class HomeController {
             
         });
         
-        // const currentDate = new Date().toISOString();
+         const currentDate = new Date().toISOString();
         // const trending_events = await prisma.event.findMany({
         //   include: {
         //     user: {
