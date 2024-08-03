@@ -22,6 +22,7 @@ class LoginController {
             },
         });
 
+        
         if (user) {
             if(user.is_approved == 1) {
                 const token = generateToken(user);
