@@ -22,11 +22,10 @@ class LoginController {
             },
         });
 
-        
+
         if (user) {
             if(user.is_approved == 1) {
                 const token = generateToken(user);
-                return res.json(token);
                 if (bcrypt.compareSync(password, user.password)) {
                   if(user.is_organizer == 1){
                     let payment_credential = await prisma.stripe.count({
