@@ -11,6 +11,7 @@ class LoginController {
 
       try {
         const { email, password } = req.body;
+        return res.json(req.body);
         const isValidate = await Validator.loginValidation(req.body);
         if (isValidate.success != true) {
             return res.status(400).json({ errors: isValidate });
