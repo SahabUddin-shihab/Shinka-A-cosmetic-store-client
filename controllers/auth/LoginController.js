@@ -41,7 +41,6 @@ class LoginController {
                         token,
                         message: "Logged in successfully!",
                         user_type : 'organizer',
-                        payment_setup : true
                       });
                     }else {
                       return res.json({
@@ -54,7 +53,6 @@ class LoginController {
                         token,
                         message: "Logged in successfully!",
                         user_type : 'organizer',
-                        payment_setup : false
                       });
                     }
                 }else{
