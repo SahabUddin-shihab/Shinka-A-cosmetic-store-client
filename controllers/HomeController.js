@@ -28,8 +28,6 @@ class HomeController {
             },
         });
 
-        
-       
         const sliders = await prisma.slider.findMany({
             where : {
                 status : 1,
@@ -41,8 +39,6 @@ class HomeController {
             }
         });
 
-       
-        
         let cat_id = 1;
         const cat = await prisma.category.findFirst({});
         if(cat){
