@@ -166,11 +166,53 @@ class HomeController {
                 name : true,
               }
             }, 
-            ticket_type: {
+           
+            venue : {
               select : {
+                id : true,
                 name : true,
+                seat : true,
+                address : true,
+                google_map : true,
+                latitude : true,
+                longitude : true,
+                venu_tickets : {
+                  select : {
+                    id : true,
+                    name : true,
+                    seats : true
+                  }
+                },
+                country : {
+                  select : {
+                    id : true,
+                    name : true
+                  }
+                },
+                state : {
+                  select : {
+                    id : true,
+                    country_id : true,
+                    name : true
+                  }
+                },
+                city : {
+                  select : {
+                    id : true,
+                    name : true
+                  }
+                }
               }
             },
+            specification : {
+              select : {
+                id : true,
+                venue_id : true,
+                ticket_id : true,
+                level : true,
+                price : true,
+              }
+            }
           },
           orderBy : {
             booked_sites : 'desc'
@@ -247,11 +289,7 @@ class HomeController {
                 price : true,
               }
             },
-            ticket_type: {
-              select : {
-                name : true,
-              }
-            },
+           
           },
           orderBy : {
             id : 'desc'
@@ -361,11 +399,53 @@ class HomeController {
                 name : true,
               }
             }, 
-            ticket_type: {
+           
+            venue : {
               select : {
+                id : true,
                 name : true,
+                seat : true,
+                address : true,
+                google_map : true,
+                latitude : true,
+                longitude : true,
+                venu_tickets : {
+                  select : {
+                    id : true,
+                    name : true,
+                    seats : true
+                  }
+                },
+                country : {
+                  select : {
+                    id : true,
+                    name : true
+                  }
+                },
+                state : {
+                  select : {
+                    id : true,
+                    country_id : true,
+                    name : true
+                  }
+                },
+                city : {
+                  select : {
+                    id : true,
+                    name : true
+                  }
+                }
               }
             },
+            specification : {
+              select : {
+                id : true,
+                venue_id : true,
+                ticket_id : true,
+                level : true,
+                price : true,
+              }
+            }
           },
           orderBy : {
             booked_sites : 'desc'
@@ -566,6 +646,52 @@ class HomeController {
               name: true,
               image: true,
             }
+          },
+          venue : {
+            select : {
+              id : true,
+              name : true,
+              seat : true,
+              address : true,
+              google_map : true,
+              latitude : true,
+              longitude : true,
+              venu_tickets : {
+                select : {
+                  id : true,
+                  name : true,
+                  seats : true
+                }
+              },
+              country : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              },
+              state : {
+                select : {
+                  id : true,
+                  country_id : true,
+                  name : true
+                }
+              },
+              city : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              }
+            }
+          },
+          specification : {
+            select : {
+              id : true,
+              venue_id : true,
+              ticket_id : true,
+              level : true,
+              price : true,
+            }
           }
         }
         });
@@ -692,6 +818,52 @@ class HomeController {
               name: true,
               image: true,
             }
+          },
+          venue : {
+            select : {
+              id : true,
+              name : true,
+              seat : true,
+              address : true,
+              google_map : true,
+              latitude : true,
+              longitude : true,
+              venu_tickets : {
+                select : {
+                  id : true,
+                  name : true,
+                  seats : true
+                }
+              },
+              country : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              },
+              state : {
+                select : {
+                  id : true,
+                  country_id : true,
+                  name : true
+                }
+              },
+              city : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              }
+            }
+          },
+          specification : {
+            select : {
+              id : true,
+              venue_id : true,
+              ticket_id : true,
+              level : true,
+              price : true,
+            }
           }
         }
       });
@@ -767,6 +939,52 @@ class HomeController {
               id : true,
               name : true,
               image : true
+            }
+          },
+          venue : {
+            select : {
+              id : true,
+              name : true,
+              seat : true,
+              address : true,
+              google_map : true,
+              latitude : true,
+              longitude : true,
+              venu_tickets : {
+                select : {
+                  id : true,
+                  name : true,
+                  seats : true
+                }
+              },
+              country : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              },
+              state : {
+                select : {
+                  id : true,
+                  country_id : true,
+                  name : true
+                }
+              },
+              city : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              }
+            }
+          },
+          specification : {
+            select : {
+              id : true,
+              venue_id : true,
+              ticket_id : true,
+              level : true,
+              price : true,
             }
           }
         }
@@ -848,6 +1066,52 @@ class HomeController {
               name : true,
               image : true
             }
+          },
+          venue : {
+            select : {
+              id : true,
+              name : true,
+              seat : true,
+              address : true,
+              google_map : true,
+              latitude : true,
+              longitude : true,
+              venu_tickets : {
+                select : {
+                  id : true,
+                  name : true,
+                  seats : true
+                }
+              },
+              country : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              },
+              state : {
+                select : {
+                  id : true,
+                  country_id : true,
+                  name : true
+                }
+              },
+              city : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              }
+            }
+          },
+          specification : {
+            select : {
+              id : true,
+              venue_id : true,
+              ticket_id : true,
+              level : true,
+              price : true,
+            }
           }
         }
         });
@@ -901,9 +1165,51 @@ class HomeController {
               vvip_seat : true,
             }
           }, 
-          ticket_type: {
+         
+          venue : {
             select : {
+              id : true,
               name : true,
+              seat : true,
+              address : true,
+              google_map : true,
+              latitude : true,
+              longitude : true,
+              venu_tickets : {
+                select : {
+                  id : true,
+                  name : true,
+                  seats : true
+                }
+              },
+              country : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              },
+              state : {
+                select : {
+                  id : true,
+                  country_id : true,
+                  name : true
+                }
+              },
+              city : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              }
+            }
+          },
+          specification : {
+            select : {
+              id : true,
+              venue_id : true,
+              ticket_id : true,
+              level : true,
+              price : true,
             }
           },
           review: {
@@ -1089,11 +1395,53 @@ class HomeController {
               name : true,
             }
           }, 
-          ticket_type: {
+         
+          venue : {
             select : {
+              id : true,
               name : true,
+              seat : true,
+              address : true,
+              google_map : true,
+              latitude : true,
+              longitude : true,
+              venu_tickets : {
+                select : {
+                  id : true,
+                  name : true,
+                  seats : true
+                }
+              },
+              country : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              },
+              state : {
+                select : {
+                  id : true,
+                  country_id : true,
+                  name : true
+                }
+              },
+              city : {
+                select : {
+                  id : true,
+                  name : true
+                }
+              }
             }
           },
+          specification : {
+            select : {
+              id : true,
+              venue_id : true,
+              ticket_id : true,
+              level : true,
+              price : true,
+            }
+          }
         },
         orderBy :{
           id : 'desc',

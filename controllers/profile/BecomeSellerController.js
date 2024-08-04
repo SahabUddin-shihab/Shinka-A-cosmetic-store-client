@@ -9,7 +9,8 @@ class BecomeSellerController {
 
   static async become_seller(req, res) { 
 
-    try {
+    
+   // try {
         const {
             user_id,
             company_first_name,
@@ -29,13 +30,24 @@ class BecomeSellerController {
             instagram_url,
             youtube_url,
             is_agree,
-            description
+            description,
+
+
+            stripe_key,
+            stipe_secrate,
+            country_code,
+            currency_code,
+            currency_rate,
+           
+
         } = req.body;
 
         const isValidate = await Validator.becomeSellerValidation(req.body);
         if (isValidate.success != true) {
             return res.json({ errors: isValidate });
         }
+       
+
         const is_exist = await prisma.user.findFirst({
             where : {
                 company_email : company_email
@@ -60,8 +72,8 @@ class BecomeSellerController {
                 website_url : website_url,
                 tax_id : tax_id || 12345,
                 google_map : google_map,
-                company_logo : company_logo || LoginController.png,
-                company_document : company_document || document.png,
+                company_logo : company_logo || 'logo.png',
+                company_document : company_document || 'document.png',
                 facebook_url : facebook_url,
                 twitter_url : twitter_url,
                 instagram_url : instagram_url,
@@ -71,13 +83,26 @@ class BecomeSellerController {
                 description : description
             },
         });
+
+        await prisma.stripe.create({
+            data: {
+              user_id : parseInt(user_id),
+              stripe_key : stripe_key,
+              stipe_secrate : stipe_secrate,
+              country_code : country_code,
+              currency_code : currency_code,
+              currency_rate : parseFloat(currency_rate),
+              image : 'default.png',
+              status : 1,
+            },
+          });
       
         
         return res.json({ message: "Your request has been successfully send to admin!", });
 
-      } catch (error) {
-          return res.status(401).json({ message: "Something wents to wrong!!" });
-      }
+    //   } catch (error) {
+    //       return res.status(401).json({ message: "Something wents to wrong!!" });
+    //   }
     }
 
 

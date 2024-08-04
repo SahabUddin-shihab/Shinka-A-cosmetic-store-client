@@ -9,27 +9,19 @@ class WatchlistController {
 
      try {
 
-        const page = parseInt(req.query.page) || 1;
-        const pageSize = parseInt(req.query.pageSize) || 5;
-
-        const totalItems = await prisma.wishlist.count({
-          where : {
-            user_id : req.user.id,
-          }
-        }); 
-        const totalPages = Math.ceil(totalItems / pageSize);
-
         const user = await prisma.user.findUnique({
             where : {
                 id : req.user.id
             },
             select : {
+                id  : true,
                 name : true,
                 email : true,
                 phone : true,
                 address : true
             }
         });
+
         const watchlists = await prisma.wishlist.findMany({
            
             where : {
@@ -51,6 +43,52 @@ class WatchlistController {
                         id : true,
                         name : true,
                         image : true
+                      }
+                    },
+                    venue : {
+                      select : {
+                        id : true,
+                        name : true,
+                        seat : true,
+                        address : true,
+                        google_map : true,
+                        latitude : true,
+                        longitude : true,
+                        venu_tickets : {
+                          select : {
+                            id : true,
+                            name : true,
+                            seats : true
+                          }
+                        },
+                        country : {
+                          select : {
+                            id : true,
+                            name : true
+                          }
+                        },
+                        state : {
+                          select : {
+                            id : true,
+                            country_id : true,
+                            name : true
+                          }
+                        },
+                        city : {
+                          select : {
+                            id : true,
+                            name : true
+                          }
+                        }
+                      }
+                    },
+                    specification : {
+                      select : {
+                        id : true,
+                        venue_id : true,
+                        ticket_id : true,
+                        level : true,
+                        price : true,
                       }
                     }
                   }
