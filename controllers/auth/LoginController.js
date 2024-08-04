@@ -22,7 +22,6 @@ class LoginController {
             },
         });
 
-
         if (user) {
             if(user.is_approved == 1) {
                 const token = generateToken(user);
@@ -71,7 +70,6 @@ class LoginController {
                   user_type : 'user',
                   message: "Logged in successfully!",
                 });
-                
               }
             }     
             return res.status(401).json({ message: "Password does not match!!" });
