@@ -128,6 +128,7 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
+                seats : true
               }
             }
           },
@@ -211,6 +212,7 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
+                seats : true
               }
             }
           },
@@ -287,6 +289,7 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
+                seats : true
               }
             },
            
@@ -444,6 +447,7 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
+                seats : true
               }
             }
           },
@@ -691,6 +695,7 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
+              seats : true
             }
           }
         }
@@ -863,6 +868,7 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
+              seats : true
             }
           }
         }
@@ -985,6 +991,7 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
+              seats : true
             }
           }
         }
@@ -1111,6 +1118,7 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
+              seats : true
             }
           }
         }
@@ -1210,6 +1218,7 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
+              seats : true
             }
           },
           review: {
@@ -1440,6 +1449,7 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
+              seats : true
             }
           }
         },

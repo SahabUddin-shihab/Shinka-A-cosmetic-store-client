@@ -89,6 +89,7 @@ class WatchlistController {
                         ticket_id : true,
                         level : true,
                         price : true,
+                        seats : true
                       }
                     }
                   }
