@@ -29,7 +29,7 @@ static async store(req, res) {
 
       // Generate verification token and link
       const verified_token = RandomNumber(10000000, 99999999);
-      const verified_link = `${req.protocol}://${req.headers.host}/auth/account/verified/${verified_token}`;
+      const verified_link = `https://getway-client.vercel.app/auth/account/verified/${verified_token}`;
 
       // Create the new user in the database
       const newUser = await prisma.user.create({
@@ -163,17 +163,15 @@ static async store(req, res) {
       }
     });
     const token = generateToken(find_user);
-    return res.json({
-        user : {
-            id : find_user.id,
-            name : find_user.name,
-            email : find_user.email,
-            image : find_user.image
-        },
-        token,
-        message: "Thank you. Your account is active now!!",
-        user_type : 'user'
-    });
+
+    res.cookie('auth_token', token, {
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production', 
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: 'strict', 
+  });
+
+    return res.json({ message: "Thank you. Your account is active now!!"});
     
   }
 }
