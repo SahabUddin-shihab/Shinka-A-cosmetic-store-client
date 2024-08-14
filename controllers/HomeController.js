@@ -128,7 +128,8 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
-                seats : true
+                seats : true,
+                sold_ticket : true,
               }
             }
           },
@@ -212,7 +213,8 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
-                seats : true
+                seats : true,
+                sold_ticket : true
               }
             }
           },
@@ -289,7 +291,8 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
-                seats : true
+                seats : true,
+                sold_ticket : true
               }
             },
            
@@ -447,7 +450,8 @@ class HomeController {
                 ticket_id : true,
                 level : true,
                 price : true,
-                seats : true
+                seats : true,
+                sold_ticket : true
               }
             }
           },
@@ -695,7 +699,8 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
-              seats : true
+              seats : true,
+              sold_ticket : true
             }
           }
         }
@@ -868,7 +873,8 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
-              seats : true
+              seats : true,
+              sold_ticket : true
             }
           }
         }
@@ -991,7 +997,8 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
-              seats : true
+              seats : true,
+              sold_ticket : true
             }
           }
         }
@@ -1118,7 +1125,8 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
-              seats : true
+              seats : true,
+              sold_ticket : true
             }
           }
         }
@@ -1139,7 +1147,9 @@ class HomeController {
   }
   static async event(req, res) {
     
-    try {
+    //return res.json("Hello");
+
+    //try {
       const Id = parseInt(req.params.id);
 
       const single_event = await prisma.event.findUnique({
@@ -1218,7 +1228,8 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
-              seats : true
+              seats : true,
+              sold_ticket : true
             }
           },
           review: {
@@ -1235,6 +1246,7 @@ class HomeController {
         },
       });
 
+    
       await prisma.event.update({
         where : {
           id : Id
@@ -1279,9 +1291,9 @@ class HomeController {
         // cta : footer_banner
       });
 
-    } catch (error) {
-      return res.status(500).json({ message: "Something went wrong." });
-    }
+    // } catch (error) {
+    //   return res.status(500).json({ message: "Something went wrong." });
+    // }
   }
   static async event_review(req, res) {
    
@@ -1449,7 +1461,8 @@ class HomeController {
               ticket_id : true,
               level : true,
               price : true,
-              seats : true
+              seats : true,
+              sold_ticket : true
             }
           }
         },

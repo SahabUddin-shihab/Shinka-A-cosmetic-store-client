@@ -219,11 +219,12 @@ model order {
   email          String
   quantity       Int
   unit_price     Float
+  type    String  @default("Normal Ticket")
   order_status   Int
   payment_status Int
   transaction_id String
   payment_method String
-  created_at     DateTime @default(now())
+  created_at     DateTime 
   updated_at     DateTime @default(now())
   address        String   @db.VarChar(255)
   phone          String   @db.VarChar(255)
@@ -504,6 +505,7 @@ model specification {
   ticket_id   Int
   price       Float    @default(0.0)
   seats       Int
+  sold_ticket Int      @default(0)  
   level       String   @default("Normal Ticket")
   venue_id    Int
   venue       venue  @relation(fields: [venue_id], references: [id])

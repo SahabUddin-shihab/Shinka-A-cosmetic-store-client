@@ -98,6 +98,9 @@ class TicketController {
       const tickets = await prisma.order.findMany({
         skip: (page - 1) * pageSize,
         take: pageSize,
+        orderBy : {
+          id : 'desc'
+        },
         where: {
           user_id: req.user.id,
         },
@@ -123,6 +126,7 @@ class TicketController {
           },
         },
       });
+      
       return res.status(200).json({
         'tickets': tickets,
         totalItems,
@@ -155,7 +159,8 @@ class TicketController {
         quantity,
         address,
         phone,
-        currency
+        currency,
+        spacification_id
       } = req.body;
 
       const payment_credential = await prisma.stripe.findFirst({
@@ -164,22 +169,22 @@ class TicketController {
         }
       });
 
-      const cardExpDate = formatCardDate(card_date);
+      // const cardExpDate = formatCardDate(card_date);
 
-      const paymentDetails = {
-        amount: parseInt(amount),
-        currency,
-        source: {
-          cardNumber: card_Number,
-          expirationDate: cardExpDate,
-          cvv: card_CVC,
-        },
-      };
+      // const paymentDetails = {
+      //   amount: parseInt(amount),
+      //   currency,
+      //   source: {
+      //     cardNumber: card_Number,
+      //     expirationDate: cardExpDate,
+      //     cvv: card_CVC,
+      //   },
+      // };
 
-      const accessToken = await generateAccessToken();
-      const paymentResponse = await makePayment(accessToken, paymentDetails);
+      // const accessToken = await generateAccessToken();
+      // const paymentResponse = await makePayment(accessToken, paymentDetails);
 
-      const transactionId = paymentResponse.transactionId;
+      //const transactionId = paymentResponse.transactionId;
 
       const checkTicket = await prisma.event.findFirst({
         where: {
@@ -190,6 +195,12 @@ class TicketController {
       if (checkTicket.no_sites < parseInt(quantity)) {
         return res.json({ message: "Quantity is greater than available tickets" });
       }
+
+      const specification = await prisma.specification.findFirst({
+        where : {
+          id : parseInt(spacification_id)
+        }
+      });
 
       await prisma.order.create({
         data: {
@@ -202,20 +213,31 @@ class TicketController {
           phone,
           quantity: parseInt(quantity),
           unit_price: checkTicket.ticket_price,
+          type : specification.level,
           order_status: 1,
           payment_status: 1,
-          transaction_id: transactionId,
-          payment_method: 'globalpay'
+          transaction_id: 'k732jd823jhewq9234',//transactionId,
+          payment_method: 'globalpay',
+          created_at: new Date()
         }
       });
-
       await prisma.event.update({
         where: {
           id: parseInt(event_id)
         },
         data: {
-          no_sites: checkTicket.no_sites - parseInt(quantity),
+          //no_sites: checkTicket.no_sites - parseInt(quantity),
           booked_sites: checkTicket.booked_sites + parseInt(quantity),
+        }
+      });
+
+      await prisma.specification.update({
+        where : {
+          id : parseInt(spacification_id)
+        },
+        data : {
+          sold_ticket : parseInt(specification.sold_ticket) + parseInt(quantity),
+          //seats : parseInt(specification.seats) - parseInt(quantity)
         }
       });
 
