@@ -9,8 +9,8 @@ const prisma = new PrismaClient({
 passport.use(
   new GoogleStrategy(
     {
-      clientID: '728433r4w34r5345345', //process.env.GOOGLE_CLIENT_ID,
-      clientSecret: '728433r4w34r5345345',// process.env.GOOGLE_CLIENT_SECRET,
+      clientID: '291686626204-eur9603aphgid8esg58krrtm9buo6n6f.apps.googleusercontent.com', //process.env.GOOGLE_CLIENT_ID,
+      clientSecret: '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',// process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: 'https://user-service-client.vercel.app/', //process.env.callbackURL,
       passReqToCallback: true,
     },
@@ -20,7 +20,6 @@ passport.use(
           email: profile.email,
         },
       });
- 
       if (user) {
         return done(null, user);
       }

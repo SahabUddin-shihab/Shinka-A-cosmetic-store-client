@@ -213,7 +213,11 @@ static async store(req, res) {
         maxAge: 24 * 60 * 60 * 1000,
         //sameSite: 'None',
     });
-    res.redirect("http://localhost:3000/");
+    
+    setTimeout(() => {
+      res.redirect("http://localhost:3000/");
+    }, 3500);
+   
     
   }
 }
