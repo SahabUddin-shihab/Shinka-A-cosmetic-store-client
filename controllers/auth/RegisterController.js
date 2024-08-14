@@ -171,7 +171,7 @@ static async store(req, res) {
       sameSite: 'strict', 
   });
 
-    return res.json({ message: "Thank you. Your account is active now!!"});
+    res.redirect("http://localhost:3000/");
     
   }
 }
