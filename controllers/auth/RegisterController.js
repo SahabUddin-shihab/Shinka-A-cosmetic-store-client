@@ -141,6 +141,37 @@ static async store(req, res) {
           return res.status(401).json({ message: "Something wents to wrong!!" });
       }
 }
+// static async account_verify(req,res)
+//   {
+//     const verify_token = parseInt(req.params.token);
+//     const find_user = await prisma.user.findFirst({
+//       where: { 
+//         verified_token: verify_token,
+//       },
+//     });
+//     if(!find_user){
+//       return res.status(401).json({ message: "Please provide a valide token!" });
+//     }
+//     await prisma.user.update({
+//       where : {
+//         id : find_user.id,
+//       },
+//       data : {
+//         email_verified : 'verified',
+//         is_approved : 1
+//       }
+//     });
+//     const token = generateToken(find_user);
+
+//     res.cookie('auth_token', token, {
+//       httpOnly: true, 
+//       secure: process.env.NODE_ENV === 'production', 
+//       maxAge: 24 * 60 * 60 * 1000,
+//       sameSite: 'None',
+//     });
+//     res.redirect("http://localhost:3000/");
+    
+//   }
 
   static async account_verify(req,res)
   {
@@ -162,13 +193,25 @@ static async store(req, res) {
         is_approved : 1
       }
     });
+
+    const userInfo = {
+      id : find_user.id,
+      name : find_user.name,
+      email : find_user.email,
+      image : find_user.image 
+  };
     const token = generateToken(find_user);
 
-    res.cookie('auth_token', token, {
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === 'production', 
-      maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'None',
+    const cookieData  = {
+      token: token,
+      user: userInfo,
+  };
+  
+    res.cookie('cookie_data', JSON.stringify(cookieData), {
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        maxAge: 24 * 60 * 60 * 1000,
+        //sameSite: 'None',
     });
     res.redirect("http://localhost:3000/");
     
@@ -176,3 +219,4 @@ static async store(req, res) {
 }
 
 export default RegisterController;
+
