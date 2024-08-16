@@ -15,8 +15,8 @@ class LoginController {
     res.clearCookie("auth_token");
     
     const cookieData  = {
-      token: token,
-      user: user,
+      token: "token",
+      user: "user",
     };
 
     res.cookie('cookie_data', JSON.stringify(cookieData), {
@@ -24,7 +24,7 @@ class LoginController {
       secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000,
       domain: 'http://localhost:3000',
-      sameSite: 'None',
+      // sameSite: 'None',
       });
 
       setTimeout(() => {
