@@ -10,23 +10,26 @@ class LoginController {
   static async googleAuth(req, res) {
   
     const user = req.user;
-
     const token = generateToken(user);
-    const cookieData  = {
+    const cookieData = {
       token: token,
       user: user,
     };
-    res.cookie('cookie_data', cookieData, {
+    
+    // Serialize cookieData to a JSON string
+    const serializedCookieData = JSON.stringify(cookieData);
+    
+    res.cookie('cookie_data', serializedCookieData, {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
-      maxAge: 24 * 60 * 60 * 1000,
-      domain: 'http://localhost:3000',
-      // sameSite: 'None',
-      });
-
-      setTimeout(() => {
-        res.redirect("http://localhost:3000/");
-      }, 5000);
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      domain: 'localhost', // Set to a proper domain or omit for development
+      sameSite: 'Lax', // Adjust based on your needs
+    });
+    
+    setTimeout(() => {
+      res.redirect("http://localhost:3000/");
+    }, 5000);
   
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
     // res.redirect('http://localhost:3000');
