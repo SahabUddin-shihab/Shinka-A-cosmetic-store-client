@@ -16,7 +16,7 @@ class LoginController {
     
     const cookieData  = {
       token: token,
-      user: userInfo,
+      user: user,
     };
 
     res.cookie('cookie_data', JSON.stringify(cookieData), {
