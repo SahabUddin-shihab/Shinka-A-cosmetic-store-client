@@ -23,8 +23,8 @@ class LoginController {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      domain: 'localhost', // Set to a proper domain or omit for development
-      sameSite: 'Lax', // Adjust based on your needs
+      // domain: 'localhost', // Set to a proper domain or omit for development
+      // sameSite: 'Lax', // Adjust based on your needs
     });
     
     setTimeout(() => {
