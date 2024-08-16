@@ -12,13 +12,11 @@ class LoginController {
     const user = req.user;
 
     const token = generateToken(user);
-    res.clearCookie("auth_token");
-    
     const cookieData  = {
-      token: "token",
-      user: "user",
+      token: token,
+      user: user,
     };
-
+    return res.json(cookieData);
     res.cookie('cookie_data', JSON.stringify(cookieData), {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
