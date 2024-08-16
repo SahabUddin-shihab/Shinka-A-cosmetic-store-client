@@ -16,8 +16,7 @@ class LoginController {
       token: token,
       user: user,
     };
-    return res.json(cookieData);
-    res.cookie('cookie_data', JSON.stringify(cookieData), {
+    res.cookie('cookie_data', cookieData, {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000,
