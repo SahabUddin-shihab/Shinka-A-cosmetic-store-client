@@ -13,9 +13,26 @@ class LoginController {
 
     const token = generateToken(user);
     res.clearCookie("auth_token");
-    res.cookie("auth_token", token); 
+    
+    const cookieData  = {
+      token: token,
+      user: userInfo,
+    };
+
+    res.cookie('cookie_data', JSON.stringify(cookieData), {
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production', 
+      maxAge: 24 * 60 * 60 * 1000,
+      domain: 'http://localhost:3000'
+      //sameSite: 'None',
+      });
+
+      setTimeout(() => {
+        res.redirect("http://localhost:3000/");
+      }, 5000);
+  
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
-    res.redirect('http://localhost:3000');
+    // res.redirect('http://localhost:3000');
   }
 }
 
