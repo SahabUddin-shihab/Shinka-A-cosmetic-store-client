@@ -22,7 +22,7 @@ class LoginController {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000,
-      domain: 'http://localhost:3000'
+      sameSite: 'None',
     });  
     setTimeout(() => {
       res.redirect("http://localhost:3000/");
