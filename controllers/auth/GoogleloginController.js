@@ -25,7 +25,6 @@ class LoginController {
       sameSite: 'None', // For testing
     });
     res.redirect("http://localhost:3000")
-    return res.json("Cookie set");
     
     // setTimeout(() => {
     //   res.redirect("http://localhost:3000/");
