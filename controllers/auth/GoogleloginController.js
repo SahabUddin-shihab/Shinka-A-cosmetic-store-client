@@ -25,7 +25,7 @@ class LoginController {
     });  
     setTimeout(() => {
       res.redirect("http://localhost:3000/");
-    }, 10000);
+    }, 8000);
   
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
   }
