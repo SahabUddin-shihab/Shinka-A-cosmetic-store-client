@@ -22,10 +22,10 @@ class LoginController {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000,
-      //sameSite: 'Lax'
+      domain: 'http://localhost:3000'
     });  
     setTimeout(() => {
-      res.redirect("https://event-ticketing-silk.vercel.app");
+      res.redirect("http://localhost:3000/");
     }, 8000);
   
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
