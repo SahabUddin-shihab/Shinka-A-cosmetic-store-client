@@ -10,7 +10,6 @@ class HomeController {
   static async index(req, res) {
     try {
 
-       
         const categories = await prisma.category.findMany({
             where: { 
                 status : 1
