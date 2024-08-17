@@ -16,9 +16,7 @@ class LoginController {
       user: user,
     };
     
-    // Serialize cookieData to a JSON string
     const serializedCookieData = JSON.stringify(cookieData);
-    
     res.cookie('cookie_data', serializedCookieData, {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
@@ -32,7 +30,6 @@ class LoginController {
     }, 5000);
   
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
-    // res.redirect('http://localhost:3000');
   }
 }
 

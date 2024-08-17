@@ -11,7 +11,7 @@ passport.use(
     {
       clientID: '291686626204-eur9603aphgid8esg58krrtm9buo6n6f.apps.googleusercontent.com', //process.env.GOOGLE_CLIENT_ID,
       clientSecret: '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',// process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'https://getway-client.vercel.app/google/callback', //process.env.callbackURL,
+      callbackURL: 'https://client-user-service.vercel.app/google/callback', //process.env.callbackURL,
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
