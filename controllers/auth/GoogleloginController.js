@@ -25,7 +25,7 @@ class LoginController {
       sameSite: 'Lax'
     });  
     setTimeout(() => {
-      res.redirect("https://client-user-service.vercel.app");
+      res.redirect("https://event-ticketing-silk.vercel.app");
     }, 8000);
   
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
