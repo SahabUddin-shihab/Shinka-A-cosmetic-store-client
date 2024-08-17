@@ -17,13 +17,14 @@ class LoginController {
     };
     
     const serializedCookieData = JSON.stringify(cookieData);
+    res.clearCookie('cookie_data');
     res.cookie('cookie_data', serializedCookieData, {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'Lax',
+      sameSite: 'None', // For testing
     });
-
+    res.redirect("http://localhost:3000")
     return res.json("Cookie set");
     
     // setTimeout(() => {
