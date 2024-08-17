@@ -23,10 +23,12 @@ class LoginController {
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: 'Lax',
     });
+
+    return res.json("Cookie set");
     
-    setTimeout(() => {
-      res.redirect("http://localhost:3000/");
-    }, 5000);
+    // setTimeout(() => {
+    //   res.redirect("http://localhost:3000/");
+    // }, 5000);
   
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
   }
