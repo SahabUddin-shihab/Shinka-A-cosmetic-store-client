@@ -22,13 +22,10 @@ class LoginController {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
       maxAge: 24 * 60 * 60 * 1000,
-      sameSite: 'None', // For testing
-    });
-    res.redirect("http://localhost:3000")
-    
-    // setTimeout(() => {
-    //   res.redirect("http://localhost:3000/");
-    // }, 5000);
+    });  
+    setTimeout(() => {
+      res.redirect("http://localhost:3000/");
+    }, 10000);
   
     //res.redirect('https://event-ticketing-silk.vercel.app'); 
   }
