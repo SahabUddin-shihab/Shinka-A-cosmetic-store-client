@@ -176,7 +176,13 @@ static async store(req, res) {
       user: userInfo,
   };
   
-    res.cookie('cookie_data', JSON.stringify(cookieData));
+    res.cookie('cookie_data', JSON.stringify(cookieData), {
+        httpOnly: true, 
+        domain: 'https://getway-client.vercel.app',
+        secure: process.env.NODE_ENV === 'production', 
+        maxAge: 24 * 60 * 60 * 1000,
+        //sameSite: 'None',
+    });
 
     setTimeout(() => {
       res.redirect("http://localhost:3000/");
