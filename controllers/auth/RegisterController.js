@@ -180,17 +180,12 @@ static async store(req, res) {
     res.cookie('cookie_data', JSON.stringify(cookieData), {
         httpOnly: false, 
         secure: false, 
-        sameSite: 'None', // Enables cross-site cookies
-        domain: 'localhost', // Use your domain here, or leave it out if it’s the same as the backend
-        path: '/', // Ensures the cookie is available site-wide
         maxAge: 24 * 60 * 60 * 1000,
     });
 
-    // setTimeout(() => {
-    //   res.redirect("http://localhost:3000");
-    // }, 5000);
-   
-    
+    setTimeout(() => {
+      res.redirect("http://localhost:3000");
+    }, 5000);
   }
 }
 
