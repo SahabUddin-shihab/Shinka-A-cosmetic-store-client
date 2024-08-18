@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 class LocalizationController {
-  static jsonFilePath = join(__dirname, '..', 'Localization', 'data.json');
+  static jsonFilePath = join(__dirname,'data.json');
 
   static async readJsonFile() {
     try {
