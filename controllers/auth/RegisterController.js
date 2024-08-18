@@ -178,8 +178,8 @@ static async store(req, res) {
   };
   
     res.cookie('cookie_data', JSON.stringify(cookieData), {
-        httpOnly: true, 
-        
+        httpOnly: false, 
+        secure: false, 
         maxAge: 24 * 60 * 60 * 1000,
     });
 
