@@ -178,14 +178,14 @@ static async store(req, res) {
   
     res.cookie('cookie_data', JSON.stringify(cookieData), {
               path: '/',
-              domain: 'client-user-service.vercel.app',
+              domain: 'https://getway-client.vercel.app',
               secure: true,
               sameSite: 'None',
               httpOnly: true
     });
 
     setTimeout(() => {
-      res.redirect("http://localhost:3000/");
+      res.redirect("https://getway-client.vercel.app");
     }, 5000);
    
     
