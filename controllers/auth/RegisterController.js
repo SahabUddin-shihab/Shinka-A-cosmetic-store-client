@@ -177,15 +177,20 @@ static async store(req, res) {
       user: userInfo,
   };
   
-    res.cookie('cookie_data', JSON.stringify(cookieData), {
-        httpOnly: false, 
-        secure: false, 
-        maxAge: 24 * 60 * 60 * 1000,
-    });
+  res.cookie('cookie_data', JSON.stringify(cookieData), { path: '/' });
 
-    setTimeout(() => {
-      res.redirect("http://localhost:3000");
-    }, 5000);
+  // Redirect to the URL
+  res.redirect('http://localhost:3000');
+
+    // res.cookie('cookie_data', JSON.stringify(cookieData), {
+    //     httpOnly: true, 
+    //     secure: false, 
+    //     maxAge: 24 * 60 * 60 * 1000,
+    // });
+
+    // setTimeout(() => {
+    //   res.redirect("http://localhost:3000");
+    // }, 5000);
   }
 }
 
