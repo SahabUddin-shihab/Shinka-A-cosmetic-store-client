@@ -10,7 +10,6 @@ class RegisterController {
 
 static async store(req, res) {
     try {
-     
       const { name, email, password } = req.body;
 
       // Validate the user input
@@ -30,7 +29,7 @@ static async store(req, res) {
 
       // Generate verification token and link
       const verified_token = RandomNumber(10000000, 99999999);
-      const verified_link = `https://client-user-service.vercel.app/auth/account/verified/${verified_token}`;
+      const verified_link = `https://getway-client.vercel.app/auth/account/verified/${verified_token}`;
 
       // Create the new user in the database
       const newUser = await prisma.user.create({
@@ -177,20 +176,19 @@ static async store(req, res) {
       user: userInfo,
   };
   
-  res.cookie('cookie_data', JSON.stringify(cookieData), { path: '/' });
+    res.cookie('cookie_data', JSON.stringify(cookieData), {
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        maxAge: 24 * 60 * 60 * 1000,
+        domain: 'http://localhost:3000'
+        //sameSite: 'None',
+    });
 
-  // Redirect to the URL
-  res.redirect('http://localhost:3000');
-
-    // res.cookie('cookie_data', JSON.stringify(cookieData), {
-    //     httpOnly: true, 
-    //     secure: false, 
-    //     maxAge: 24 * 60 * 60 * 1000,
-    // });
-
-    // setTimeout(() => {
-    //   res.redirect("http://localhost:3000");
-    // }, 5000);
+    setTimeout(() => {
+      res.redirect("http://localhost:3000/");
+    }, 5000);
+   
+    
   }
 }
 
