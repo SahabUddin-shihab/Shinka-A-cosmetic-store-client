@@ -177,11 +177,11 @@ static async store(req, res) {
   };
   
     res.cookie('cookie_data', JSON.stringify(cookieData), {
-        httpOnly: true, 
-        domain: 'https://getway-client.vercel.app',
-        secure: process.env.NODE_ENV === 'production', 
-        maxAge: 24 * 60 * 60 * 1000,
-        //sameSite: 'None',
+              path: '/',
+              domain: 'client-user-service.vercel.app',
+              secure: true,
+              sameSite: 'None',
+              httpOnly: true
     });
 
     setTimeout(() => {
