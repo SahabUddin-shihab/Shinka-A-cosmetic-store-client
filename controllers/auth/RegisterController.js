@@ -30,7 +30,7 @@ static async store(req, res) {
 
       // Generate verification token and link
       const verified_token = RandomNumber(10000000, 99999999);
-      const verified_link = `https://getway-client.vercel.app/auth/account/verified/${verified_token}`;
+      const verified_link = `https://client-user-service.vercel.app/auth/account/verified/${verified_token}`;
 
       // Create the new user in the database
       const newUser = await prisma.user.create({
@@ -186,9 +186,9 @@ static async store(req, res) {
         maxAge: 24 * 60 * 60 * 1000,
     });
 
-    setTimeout(() => {
-      res.redirect("http://localhost:3000");
-    }, 5000);
+    // setTimeout(() => {
+    //   res.redirect("http://localhost:3000");
+    // }, 5000);
    
     
   }
