@@ -176,13 +176,7 @@ static async store(req, res) {
       user: userInfo,
   };
   
-    res.cookie('cookie_data', JSON.stringify(cookieData), {
-        httpOnly: true, 
-        secure: process.env.NODE_ENV === 'production', 
-        maxAge: 24 * 60 * 60 * 1000,
-        //domain: 'http://localhost:3000'
-        sameSite: "Lax"
-    });
+    res.cookie('cookie_data', JSON.stringify(cookieData));
 
     setTimeout(() => {
       res.redirect("http://localhost:3000/");
