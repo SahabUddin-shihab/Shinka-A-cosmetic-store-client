@@ -10,6 +10,7 @@ class RegisterController {
 
 static async store(req, res) {
     try {
+     
       const { name, email, password } = req.body;
 
       // Validate the user input
@@ -180,7 +181,6 @@ static async store(req, res) {
         httpOnly: true, 
         secure: process.env.NODE_ENV === 'production', 
         maxAge: 24 * 60 * 60 * 1000,
-        domain: 'http://localhost:3000'
         //sameSite: 'None',
     });
 
