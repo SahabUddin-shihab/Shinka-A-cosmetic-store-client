@@ -6,34 +6,6 @@ import FormData from 'form-data';
 const uploadUrl = 'https://familyneedsbd.com/lang/upload.php';
 
 class LocalizationController {
-  // static jsonFilePath = join(__dirname, '..', 'Localization', 'data.json');
-
-  // static async readJsonFile() {
-  //   try {
-  //     const data = await readFile(LocalizationController.jsonFilePath, 'utf8');
-  //     return JSON.parse(data);
-  //   } catch (error) {
-  //     console.error(`Error reading JSON file: ${error.message}`);
-  //     throw new Error(`Error reading JSON file: ${error.message}`);
-  //   }
-  // }
-
-  // static async writeJsonFile(data) {
-  //   try {
-  //     const jsonData = JSON.stringify(data, null, 2);
-      
-  //     // Simulating a write operation (replace with actual write logic)
-  //     console.log('Simulating write operation...');
-  //     console.log('Data to write:', jsonData);
-
-  //    await writeFile(LocalizationController.jsonFilePath, jsonData, 'utf8');
-  //     return 'Data updated successfully';
-  //   } catch (error) {
-  //     console.error(`Error writing JSON file: ${error.message}`);
-  //     throw new Error(`Error writing JSON file: ${error.message}`);
-  //   }
-  // }
-
 
   static async getData(req, res) {
     try {
@@ -51,9 +23,10 @@ class LocalizationController {
 
   static async updateData(req, res) {
     const dataUrl = 'https://familyneedsbd.com/lang/data.json';
+    const uploadUrl = 'https://familyneedsbd.com/lang/upload.php'; // Replace with the correct upload URL
 
     try {
-      // Fetch existing data
+
       const response = await fetch(dataUrl);
       if (!response.ok) {
         throw new Error('Failed to fetch existing data');
@@ -73,17 +46,10 @@ class LocalizationController {
       // Convert updated data to JSON string
       const jsonString = JSON.stringify(updatedData, null, 2);
 
-      // Save JSON to a temporary file (locally)
-      const tempFilePath = path.join(process.cwd(), 'temp.json');
-      fs.writeFileSync(tempFilePath, jsonString, 'utf8');
+      // Upload the updated JSON string directly to the server
+      await LocalizationController.uploadJsonToServer(jsonString, uploadUrl);
 
-      // Upload the file to the server
-      await LocalizationController.uploadFileToServer(tempFilePath, uploadUrl);
-
-      // Clean up temporary file
-      fs.unlinkSync(tempFilePath);
-
-      console.log('JSON file updated successfully.');
+      console.log('Language updated successfully.');
       res.status(200).json({ message: 'JSON file updated successfully' });
     } catch (error) {
       console.error('Error updating JSON data:', error);
@@ -91,15 +57,14 @@ class LocalizationController {
     }
   }
 
-  static async uploadFileToServer(filePath, uploadUrl) {
+  static async uploadJsonToServer(jsonString, uploadUrl) {
     try {
       const formData = new FormData();
-      formData.append('file', fs.createReadStream(filePath), { filename: 'temp.json' });
+      formData.append('file', Buffer.from(jsonString), 'data.json');
 
       const response = await fetch(uploadUrl, {
         method: 'POST',
         body: formData,
-        headers: formData.getHeaders(),
       });
 
       if (!response.ok) {
