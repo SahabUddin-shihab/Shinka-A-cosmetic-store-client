@@ -4,11 +4,16 @@ import send_mail from "../config/Mail.js";
 import nodemailer from "nodemailer";
 import Validator from '../validator/Validator.js';
 import session from "express-session";
+import axios from "axios";
 
 class HomeController {
 
   static async index(req, res) {
+    
     try {
+      const fileId = '1SM0l1Y4NfRrkC6o7w5UxckfeZXPA-E9L';
+      
+      
 
         const categories = await prisma.category.findMany({
             where: { 
