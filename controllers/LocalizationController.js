@@ -49,8 +49,7 @@ class LocalizationController {
       // Upload the updated JSON string directly to the server
       await LocalizationController.uploadJsonToServer(jsonString, uploadUrl);
 
-      console.log('Language updated successfully.');
-      res.status(200).json({ message: 'JSON file updated successfully' });
+      res.status(200).json({ message: 'Language updated successfully' });
     } catch (error) {
       console.error('Error updating JSON data:', error);
       res.status(500).json({ error: error.message });
