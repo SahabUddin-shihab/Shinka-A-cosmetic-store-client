@@ -1,10 +1,6 @@
-import bcrypt from "bcrypt";
-import prisma from "../../config/db.config.js";
-import axios from "axios";
+import { JsonWebTokenError } from "jsonwebtoken";
 import generateToken from "../../utils/GenerateToken.js";
-import send_mail from "../../config/Mail.js";
-import RandomNumber from "../../utils/RandomNumber.js";
-import session from "express-session";
+import prisma from "../../config/db.config.js";
 
 class LoginController {
   static async googleAuth(req, res) {
@@ -12,6 +8,30 @@ class LoginController {
     const user = req.user;
     const token = generateToken(user); 
     res.redirect(`http://localhost:3000/${token}`);
+
+  }
+  static async user(res,req){
+
+    const getToken = req.params.token;
+    const decoded = jwt.verify(getToken, process.env.JWT_SECRET);
+    const userId = decoded.id;
+    const user = await prisma.user.findUnique({
+      where : {
+        id : userId
+      }
+    })
+    const token = generateToken(user);
+    return res.json({
+      user : {
+          id : user.id,
+          name : user.name,
+          email : user.email,
+          image : user.image
+      },
+      token,
+      user_type : 'user',
+      message: "Logged in successfully!",
+    });
 
   }
 }
