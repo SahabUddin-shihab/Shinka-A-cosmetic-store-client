@@ -1,4 +1,4 @@
-import { JsonWebTokenError } from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 import generateToken from "../../utils/GenerateToken.js";
 import prisma from "../../config/db.config.js";
 
