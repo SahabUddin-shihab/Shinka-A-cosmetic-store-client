@@ -11,9 +11,7 @@ class LoginController {
   
     const user = req.user;
     const token = generateToken(user); 
-    setTimeout(() => {
-      res.redirect("http://localhost:3000/{{$token}}");
-    }, 8000);
+    res.redirect(`http://localhost:3000/${token}`);
 
   }
 }
