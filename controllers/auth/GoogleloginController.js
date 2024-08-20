@@ -10,7 +10,7 @@ class LoginController {
     res.redirect(`http://localhost:3000/${token}`);
 
   }
-  static async user(res,req){
+  static async getUserFromToken(res,req){
 
     const getToken = req.params.token;
     const decoded = jwt.verify(getToken, process.env.JWT_SECRET);
