@@ -27,5 +27,6 @@ router.get(
   passport.authenticate("google"),
   GoogleloginController.googleAuth
 );
+router.get("/user/:token", GoogleloginController.user);
 
 export default router;
