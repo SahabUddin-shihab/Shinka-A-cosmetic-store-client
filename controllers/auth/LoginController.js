@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
 import prisma from "../../config/db.config.js";
 import Validator from '../../validator/Validator.js'
 import generateToken from "../../utils/GenerateToken.js";
@@ -196,6 +197,31 @@ class LoginController {
       } catch (error) {
           return res.status(401).json({ message: "Something wents to wrong!!" });
       }
+  }
+  static async getUserFromToken(req,res){
+
+    const getToken = req.params.token;
+    
+    const decoded = jwt.verify(getToken, process.env.JWT_SECRET);
+    const userId = decoded.id;
+    const user = await prisma.user.findUnique({
+      where : {
+        id : userId
+      }
+    })
+    const token = generateToken(user);
+    return res.json({
+      user : {
+          id : user.id,
+          name : user.name,
+          email : user.email,
+          image : user.image
+      },
+      token,
+      user_type : 'user',
+      message: "Logged in successfully!",
+    });
+
   }
 }
 

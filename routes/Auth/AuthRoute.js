@@ -15,6 +15,6 @@ router.post("/register", RegisterController.store);
 router.get("/account/verified/:token", RegisterController.account_verify);
 router.post("/account/resend/email", RegisterController.resendEmail);
 
-router.get("/user/:token", GoogleloginController.getUserFromToken);
+router.get("/user/:token", LoginController.getUserFromToken);
 
 export default router;
