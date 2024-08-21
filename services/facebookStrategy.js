@@ -10,8 +10,8 @@ passport.use(
   new FacebookStrategy(
     {
       clientID: '499792972706457',//process.env.FACEBOOK_APP_ID,
-      clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: '2300d525dbd177f743118b5541c4d25c',//'https://getwy-test.vercel.app/facebook/callback',
+      clientSecret: '2300d525dbd177f743118b5541c4d25c',//process.env.FACEBOOK_APP_SECRET,
+      callbackURL: 'https://client-user-service.vercel.app/facebook/callback',
       profileFields: ['id', 'emails', 'name']
     },
     async function (accessToken, refreshToken, profile, cb) {
