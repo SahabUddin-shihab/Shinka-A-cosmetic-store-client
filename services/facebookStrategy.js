@@ -16,7 +16,8 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
 
-      const email = profile.emails[0]?.value;
+      const email = profile.emails && profile.emails[0] && profile.emails[0].value;
+      const name = profile.displayName;
 
       const user = await prisma.user.findFirst({
         where: {
@@ -31,7 +32,7 @@ passport.use(
 
       const create_user = await prisma.user.create({
         data: {
-          name: profile.name?.givenName + ' ' + profile.name?.familyName,
+          name: name,
           email: email,
           email_verified: "true",
           is_organizer: 0,
