@@ -162,31 +162,11 @@ static async store(req, res) {
         is_approved : 1
       }
     });
-
-    const userInfo = {
-      id : find_user.id,
-      name : find_user.name,
-      email : find_user.email,
-      image : find_user.image 
-  };
+    
     const token = generateToken(find_user);
 
-    const cookieData  = {
-      token: token,
-      user: userInfo,
-  };
-  
-    res.cookie('cookie_data', JSON.stringify(cookieData), {
-              path: '/',
-              domain: 'https://getway-client.vercel.app',
-              secure: true,
-              sameSite: 'None',
-              httpOnly: true
-    });
-
-    setTimeout(() => {
-      res.redirect("https://getway-client.vercel.app");
-    }, 5000);
+    res.redirect(`http://localhost:3000/${token}`);
+    
    
     
   }
