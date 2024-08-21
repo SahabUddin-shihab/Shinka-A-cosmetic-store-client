@@ -165,7 +165,7 @@ static async store(req, res) {
     
     const token = generateToken(find_user);
 
-    res.redirect(`http://localhost:3000/${token}`);
+    res.redirect(`http://localhost:3000/?token=${token}`);
     
    
     

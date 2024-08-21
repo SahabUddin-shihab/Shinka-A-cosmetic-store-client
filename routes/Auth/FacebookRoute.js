@@ -15,7 +15,7 @@ router.get(
 
     const user = req.user;
     const token = generateToken(user); 
-    res.redirect(`http://localhost:3000/${token}`);
+    res.redirect(`http://localhost:3000/?token=${token}`);
   }
 );
 
