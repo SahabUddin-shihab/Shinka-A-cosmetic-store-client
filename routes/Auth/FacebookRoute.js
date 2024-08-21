@@ -2,6 +2,7 @@ import express from "express";
 import passport from "passport";
 import { Router } from "express";
 import GoogleloginController from "../../controllers/auth/GoogleloginController.js";
+import generateToken from "../../utils/GenerateToken.js";
 
 const router = Router();
 
