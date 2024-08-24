@@ -129,9 +129,9 @@ class Validator {
         quantity : 'required|integer',
         amount : 'required|integer',
         currency : 'required',
-        card_Number : 'required',
+        card_Number : 'required|min:16|max:16',
         card_date : 'required',
-        card_CVC : 'required|integer',
+        card_CVC : 'required|integer|min:3',
         };
         let validation = new validate(data, rules);
         if (validation.fails()) {
