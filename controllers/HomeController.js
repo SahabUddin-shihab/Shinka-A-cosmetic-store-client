@@ -1538,10 +1538,26 @@ class HomeController {
       const {seller_id,name,email,phone,subject,body} = req.body;
 
       let id = 0;
-      if (!seller_id) {
+       if (!seller_id) {
         id = 0;
+        
+         var organizer = await prisma.admin.findFirst({
+              select : {
+                  email : true
+              }
+      });
       } else {
         id = seller_id;
+
+        var organizer = await prisma.user.findUnique({
+              where : {
+                  id : parseInt(seller_id)
+              },
+              select : {
+                  email : true
+              }
+      });
+        
       }
       
       var success = true;
