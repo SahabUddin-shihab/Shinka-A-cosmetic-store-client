@@ -1559,18 +1559,7 @@ class HomeController {
       });
         
       }
-      
       var success = true;
-      
-      const organizer = await prisma.user.findUnique({
-              where : {
-                  id : parseInt(seller_id)
-              },
-              select : {
-                  email : true
-              }
-      });
-      
       const isValidate = await Validator.contactmailValidation(req.body);
       if (isValidate.success != true) {
           return res.status(400).json({ errors: isValidate });
