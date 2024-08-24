@@ -1545,7 +1545,16 @@ class HomeController {
       }
       
       var success = true;
-
+      
+      const organizer = await prisma.user.findUnique({
+              where : {
+                  id : parseInt(seller_id)
+              },
+              select : {
+                  email : true
+              }
+      });
+      
       const isValidate = await Validator.contactmailValidation(req.body);
       if (isValidate.success != true) {
           return res.status(400).json({ errors: isValidate });
@@ -1554,7 +1563,7 @@ class HomeController {
       var transporter = send_mail();
       var mailOptions = {
         from: mail_credentials.email_from,
-        to: email,
+        to: organizer.email,
         subject: subject,
         text: body
       };
