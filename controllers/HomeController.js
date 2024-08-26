@@ -590,7 +590,7 @@ class HomeController {
       };
     
       if (category_id) {
-        where.category_id = parseInt(category_id);
+        where.subcategory_id  = parseInt(category_id);
       }
 
       if (country_id) {
@@ -908,7 +908,7 @@ class HomeController {
       let where = {};
     
       if (category_id) {
-        where.category_id = parseInt(category_id);
+        where.subcategory_id  = parseInt(category_id);
       }
       if (price) {
         where.ticket_price = {
@@ -1036,7 +1036,7 @@ class HomeController {
       let where = {};
     
       if (category_id) {
-        where.category_id = parseInt(category_id);
+        where.subcategory_id  = parseInt(category_id);
       }
       if (price) {
         where.ticket_price = {
