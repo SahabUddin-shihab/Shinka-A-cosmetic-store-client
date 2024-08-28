@@ -187,7 +187,7 @@ class Validator {
         company_city : 'required|string',
         company_address : 'required|string',
         // website_url : 'required|string',
-        tax_id : 'required|string',
+       // tax_id : 'required|string',
         // google_map : 'required',
         company_logo : 'required',
         company_document : 'required',
