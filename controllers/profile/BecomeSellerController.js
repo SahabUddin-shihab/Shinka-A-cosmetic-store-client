@@ -237,7 +237,7 @@ class BecomeSellerController {
                     company_city : company_city,
                     company_address : company_address,
                     website_url : website_url,
-                    tax_id : tax_id,
+                    tax_id : tax_id || '12345',
                     google_map : google_map,
                     company_logo : company_logo,
                     company_document : company_document,
