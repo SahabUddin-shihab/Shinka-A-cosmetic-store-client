@@ -22,7 +22,7 @@ class LoginController {
             email: email,
             },
         });
-
+        var payment_setupstatus = false;
         if (user) {
             if(user.is_approved == 1) {
                 const token = generateToken(user);
@@ -33,7 +33,7 @@ class LoginController {
                         user_id : parseInt(user.id)
                       }
                     });
-                    payment_setupstatus = true,
+                     payment_setupstatus = true,
                     if(payment_credential > 0){
                       return res.json({
                         user : {
@@ -48,7 +48,7 @@ class LoginController {
                         payment_setupstatus
                       });
                     }else {
-                      payment_setupstatus = false;,
+                      payment_setupstatus = false;
                       return res.json({
                         user : {
                             id : user.id,
