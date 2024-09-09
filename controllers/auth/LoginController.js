@@ -33,7 +33,7 @@ class LoginController {
                         user_id : parseInt(user.id)
                       }
                     });
-                     payment_setupstatus = true,
+                     payment_setupstatus = true;
                     if(payment_credential > 0){
                       return res.json({
                         user : {
