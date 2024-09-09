@@ -30,9 +30,10 @@ class LoginController {
                   if(user.is_organizer == 1){
                     let payment_credential = await prisma.stripe.count({
                       where : {
-                        user_id : user.id
+                        user_id : parseInt(user.id)
                       }
                     });
+                    payment_setupstatus = true,
                     if(payment_credential > 0){
                       return res.json({
                         user : {
@@ -44,18 +45,10 @@ class LoginController {
                         token,
                         message: "Logged in successfully!",
                         user_type : 'organizer',
+                        payment_setupstatus
                       });
                     }else {
-                      let payment_setupstatus = false;
-                       const payment_account = await prisma.stripe.findFirst({
-                           where : {
-                                  user_id : user.id
-                           }
-                       });
-                      if(payment_account.length > 0){
-                        payment_setupstatus = true;
-                      }
-                      
+                      payment_setupstatus = false;,
                       return res.json({
                         user : {
                             id : user.id,
