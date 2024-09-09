@@ -159,11 +159,11 @@ class Validator {
         is_agree : 'required|integer',
         description : 'required',
 
-        stripe_key : 'required|string',
-        stipe_secrate : 'required|string',
-        country_code : 'required|string',
-        currency_code : 'required|string',
-        currency_rate : 'required'
+        // stripe_key : 'required|string',
+        // stipe_secrate : 'required|string',
+        // country_code : 'required|string',
+        // currency_code : 'required|string',
+        // currency_rate : 'required'
         };
         let validation = new validate(data, rules);
         if (validation.fails()) {
