@@ -10,7 +10,7 @@ class BecomeSellerController {
   static async become_seller(req, res) { 
 
     
-   // try {
+   try {
         const {
             user_id,
             company_first_name,
@@ -33,11 +33,11 @@ class BecomeSellerController {
             description,
 
 
-            stripe_key,
-            stipe_secrate,
-            country_code,
-            currency_code,
-            currency_rate,
+            // stripe_key,
+            // stipe_secrate,
+            // country_code,
+            // currency_code,
+            // currency_rate,
            
 
         } = req.body;
@@ -70,7 +70,7 @@ class BecomeSellerController {
                 company_city : company_city,
                 company_address : company_address,
                 website_url : website_url,
-                tax_id : tax_id || 12345,
+                tax_id : tax_id || '12345',
                 google_map : google_map,
                 company_logo : company_logo || 'logo.png',
                 company_document : company_document || 'document.png',
@@ -84,25 +84,25 @@ class BecomeSellerController {
             },
         });
 
-        await prisma.stripe.create({
-            data: {
-              user_id : parseInt(user_id),
-              stripe_key : stripe_key,
-              stipe_secrate : stipe_secrate,
-              country_code : country_code,
-              currency_code : currency_code,
-              currency_rate : parseFloat(currency_rate),
-              image : 'default.png',
-              status : 1,
-            },
-          });
+        // await prisma.stripe.create({
+        //     data: {
+        //       user_id : parseInt(user_id),
+        //       stripe_key : stripe_key,
+        //       stipe_secrate : stipe_secrate,
+        //       country_code : country_code,
+        //       currency_code : currency_code,
+        //       currency_rate : parseFloat(currency_rate),
+        //       image : 'default.png',
+        //       status : 1,
+        //     },
+        //   });
       
         
         return res.json({ message: "Your request has been successfully send to admin!", });
 
-    //   } catch (error) {
-    //       return res.status(401).json({ message: "Something wents to wrong!!" });
-    //   }
+      } catch (error) {
+          return res.status(401).json({ message: "Something wents to wrong!!" });
+      }
     }
 
 
@@ -237,7 +237,7 @@ class BecomeSellerController {
                     company_city : company_city,
                     company_address : company_address,
                     website_url : website_url,
-                    tax_id : tax_id,
+                    tax_id : tax_id || '12345',
                     google_map : google_map,
                     company_logo : company_logo,
                     company_document : company_document,

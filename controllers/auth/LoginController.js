@@ -22,7 +22,7 @@ class LoginController {
             email: email,
             },
         });
-
+        var payment_setupstatus = false;
         if (user) {
             if(user.is_approved == 1) {
                 const token = generateToken(user);
@@ -30,9 +30,10 @@ class LoginController {
                   if(user.is_organizer == 1){
                     let payment_credential = await prisma.stripe.count({
                       where : {
-                        user_id : user.id
+                        user_id : parseInt(user.id)
                       }
                     });
+                     payment_setupstatus = true;
                     if(payment_credential > 0){
                       return res.json({
                         user : {
@@ -44,8 +45,10 @@ class LoginController {
                         token,
                         message: "Logged in successfully!",
                         user_type : 'organizer',
+                        payment_setupstatus
                       });
                     }else {
+                      payment_setupstatus = false;
                       return res.json({
                         user : {
                             id : user.id,
@@ -54,8 +57,10 @@ class LoginController {
                             image : user.image
                         },
                         token,
+                        payment_setupstatus,
                         message: "Logged in successfully!",
                         user_type : 'organizer',
+                         
                       });
                     }
                 }else{

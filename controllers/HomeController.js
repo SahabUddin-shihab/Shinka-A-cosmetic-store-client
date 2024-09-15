@@ -590,7 +590,7 @@ class HomeController {
       };
     
       if (category_id) {
-        where.category_id = parseInt(category_id);
+        where.subcategory_id  = parseInt(category_id);
       }
 
       if (country_id) {
@@ -910,7 +910,7 @@ class HomeController {
       let where = {};
     
       if (category_id) {
-        where.category_id = parseInt(category_id);
+        where.subcategory_id  = parseInt(category_id);
       }
       if (price) {
         where.ticket_price = {
@@ -1039,7 +1039,7 @@ class HomeController {
       let where = {};
     
       if (category_id) {
-        where.category_id = parseInt(category_id);
+        where.subcategory_id  = parseInt(category_id);
       }
 
       if (city_id) {
@@ -1550,7 +1550,7 @@ class HomeController {
       const {seller_id,name,email,phone,subject,body} = req.body;
 
       let id = 0;
-      if (!seller_id) {
+       if (!seller_id) {
         id = 0;
         
          var organizer = await prisma.admin.findFirst({
@@ -1560,19 +1560,10 @@ class HomeController {
       });
       } else {
         id = seller_id;
-
-        var organizer = await prisma.user.findUnique({
-              where : {
-                  id : parseInt(seller_id)
-              },
-              select : {
-                  email : true
-              }
-      });
-        
       }
-     
+      
       var success = true;
+
       const isValidate = await Validator.contactmailValidation(req.body);
       if (isValidate.success != true) {
           return res.status(400).json({ errors: isValidate });
