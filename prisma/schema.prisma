@@ -395,7 +395,7 @@ model venue {
   state       state           @relation(fields: [state_id], references: [id])
   city_id     Int
   city        city            @relation(fields: [city_id], references: [id])
-
+  image       String?
   address     String
   google_map  String? @db.LongText @default("Google Map")
   latitude    Float   @default(0.0)

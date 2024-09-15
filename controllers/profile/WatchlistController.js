@@ -50,6 +50,7 @@ class WatchlistController {
                         id : true,
                         name : true,
                         seat : true,
+                        image : true,
                         address : true,
                         google_map : true,
                         latitude : true,

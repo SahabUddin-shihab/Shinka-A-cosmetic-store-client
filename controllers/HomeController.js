@@ -91,6 +91,7 @@ class HomeController {
                 id : true,
                 name : true,
                 seat : true,
+                image : true,
                 address : true,
                 google_map : true,
                 latitude : true,
@@ -176,6 +177,7 @@ class HomeController {
                 id : true,
                 name : true,
                 seat : true,
+                image : true,
                 address : true,
                 google_map : true,
                 latitude : true,
@@ -237,6 +239,7 @@ class HomeController {
               select : {
                 id : true,
                 name : true,
+                image : true
               }
             }, 
             category: {
@@ -254,6 +257,7 @@ class HomeController {
                 id : true,
                 name : true,
                 seat : true,
+                image : true,
                 address : true,
                 google_map : true,
                 latitude : true,
@@ -319,7 +323,6 @@ class HomeController {
         });
         const footer_banner = await prisma.footer_banner.findFirst({});
 
-      
       return res.status(200).json({
         categories : categories,
         sliders : sliders,
@@ -413,6 +416,7 @@ class HomeController {
                 id : true,
                 name : true,
                 seat : true,
+                image : true,
                 address : true,
                 google_map : true,
                 latitude : true,
@@ -458,13 +462,9 @@ class HomeController {
             }
           },
           orderBy : {
-            booked_sites : 'desc'
+            id : 'desc'
           },
-          where : {
-            arrange_time : {
-              gt: currentDate,
-            },
-          },
+          
           take : 3
         });
         const sidebar_banner = await prisma.ads.findFirst({
@@ -662,6 +662,7 @@ class HomeController {
               id : true,
               name : true,
               seat : true,
+              image : true,
               address : true,
               google_map : true,
               latitude : true,
@@ -836,6 +837,7 @@ class HomeController {
               id : true,
               name : true,
               seat : true,
+              image : true,
               address : true,
               google_map : true,
               latitude : true,
@@ -960,6 +962,7 @@ class HomeController {
               id : true,
               name : true,
               seat : true,
+              image : true,
               address : true,
               google_map : true,
               latitude : true,
@@ -1038,6 +1041,11 @@ class HomeController {
       if (category_id) {
         where.category_id = parseInt(category_id);
       }
+
+      if (city_id) {
+        where.city_id = parseInt(city_id);
+      }
+
       if (price) {
         where.ticket_price = {
           lte: parseFloat(price)
@@ -1088,6 +1096,7 @@ class HomeController {
               id : true,
               name : true,
               seat : true,
+              image : true,
               address : true,
               google_map : true,
               latitude : true,
@@ -1149,9 +1158,9 @@ class HomeController {
   }
   static async event(req, res) {
     
-    //return res.json("Hello");
+    
 
-    //try {
+    try {
       const Id = parseInt(req.params.id);
 
       const single_event = await prisma.event.findUnique({
@@ -1180,6 +1189,7 @@ class HomeController {
             select : {
               name : true,
               seat : true,
+              image : true,
               normal_seat : true,
               vip_seat : true,
               vvip_seat : true,
@@ -1191,6 +1201,7 @@ class HomeController {
               id : true,
               name : true,
               seat : true,
+              image : true,
               address : true,
               google_map : true,
               latitude : true,
@@ -1293,9 +1304,9 @@ class HomeController {
         // cta : footer_banner
       });
 
-    // } catch (error) {
-    //   return res.status(500).json({ message: "Something went wrong." });
-    // }
+    } catch (error) {
+      return res.status(500).json({ message: "Something went wrong." });
+    }
   }
   static async event_review(req, res) {
    
@@ -1424,6 +1435,7 @@ class HomeController {
               id : true,
               name : true,
               seat : true,
+              image : true,
               address : true,
               google_map : true,
               latitude : true,
@@ -1540,21 +1552,38 @@ class HomeController {
       let id = 0;
       if (!seller_id) {
         id = 0;
+        
+         var organizer = await prisma.admin.findFirst({
+              select : {
+                  email : true
+              }
+      });
       } else {
         id = seller_id;
-      }
-      
-      var success = true;
 
+        var organizer = await prisma.user.findUnique({
+              where : {
+                  id : parseInt(seller_id)
+              },
+              select : {
+                  email : true
+              }
+      });
+        
+      }
+     
+      var success = true;
       const isValidate = await Validator.contactmailValidation(req.body);
       if (isValidate.success != true) {
           return res.status(400).json({ errors: isValidate });
       }
+      
+     
       const mail_credentials = await prisma.email.findFirst({});
       var transporter = send_mail();
       var mailOptions = {
         from: mail_credentials.email_from,
-        to: email,
+        to: organizer.email,
         subject: subject,
         text: body
       };

@@ -8,7 +8,8 @@ import crypto from 'crypto';
 
 
 const calculateSecret = (nonce, appKey) => {
-  return crypto.createHash('sha512').update(nonce + appKey).digest('hex');
+  const input = nonce + appKey;
+  return crypto.createHash('sha512').update(input).digest('hex');
 };
 
 const GLOBALPAY_APP_ID = "qGG6k7r9T4xG7G23JBaBsLItlTuUZfRJ"; //process.env.GLOBALPAY_APP_ID;
@@ -65,7 +66,7 @@ async function makePayment(accessToken, paymentDetails) {
  
     const response = await axios.post('https://apis.sandbox.globalpay.com/ucp/transactions', paymentDetails, {
       headers: {
-       'Authorization': `Bearer G3FA4TuYGCBiCWs4YpzrALGCYXZJ`,
+       'Authorization': `Bearer ${accessToken}`,
         'X-GP-Version': '2021-03-22',
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -176,7 +177,7 @@ class TicketController {
       return res.status(404).json({message : 'Organizer payment credential not found!'});
     }
     const app_key = stripeCredentials.stipe_secrate;
-    const nonce =  new Date().toISOString();
+    const nonce = '2029-03-14T13:24:10.832'; //new Date().toISOString();
     const secret = calculateSecret(nonce, app_key);
   
     const payload = {
@@ -193,8 +194,8 @@ class TicketController {
         'Content-Type': 'application/json'
       }
     });
-    const accessToken = response.data.token;
-    //return res.json(accessToken);
+    const accessToken = "MS18nKEj5SKCBdzfLxCAlslFcsK3";//response.data.token;
+    //return res.json(response.data);
     try {
       const isValidate = await Validator.orderValidation(req.body);
       if (!isValidate.success) {
@@ -212,33 +213,35 @@ class TicketController {
       const [month, year] = card_date.split('-');
       
       const paymentDetails = {
-        account_name: "Transaction_Processing",
-        type: "SALE",
-        channel: "CNP",
-        amount: amount,
-        currency: "EUR",
-        reference: "93459c78-f3f9-427c-84df-ca0584bb55bf",
-        country: "DE",
-        payment_method: {
-          name: "James Mason",
-          entry_mode: "ECOM",
-          authentication: {
-            id: "AUT_d455464a-115c-46b7-9622-6829e0326e23"
-          },
-          card: {
-            number: card_Number,
-            expiry_month: month,
-            expiry_year: year,
-            cvv: card_CVC,
-            cvv_indicator: "PRESENT",
-            avs_address: "Flat 123",
-            avs_postal_code: "50001"
-          }
+        "account_name": "Transaction_Processing",
+        "type": "SALE",
+        "channel": "CNP",
+        "capture_mode": "AUTO",
+        "amount": "1999",
+        "currency": "USD",
+        "reference": "93459c78-f3f9-427c-84df-ca0584bb55bf",
+        "description": "SKU#BLK-MED-G123-GUC",
+        "order_reference": "INV#88547",
+        "country": "US",
+        "ip_address": "123.123.123.123",
+        "payment_method": {
+           "id": "PMT_41db09dd-784e-47f7-a5b8-39f4853fbdc0",
+           "first_name": "James",
+           "last_name": "Mason",
+           "entry_mode": "ECOM",
+           "authentication": {
+              "xid": "vJ9NXpFueXsAqeb4iAbJJbe+66s=",
+              "cavv": "AAACBUGDZYYYIgGFGYNlAAAAAAA=",
+              "eci": "5",
+              "message_version": "1.0.0"
+           }
         }
       };
 
 
       const paymentResponse = await makePayment(accessToken, paymentDetails);
+      return res.json(paymentResponse)
+
       const checkTicket = await prisma.event.findFirst({
         where: {
           id: parseInt(event_id)
@@ -269,7 +272,7 @@ class TicketController {
           type : specification.level,
           order_status: 1,
           payment_status: 1,
-          transaction_id: paymentResponse.id,//transactionId,
+          transaction_id: 'k732jd823jhewq9234',//transactionId,
           payment_method: 'globalpay',
           created_at: new Date()
         }
